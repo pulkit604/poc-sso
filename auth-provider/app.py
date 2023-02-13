@@ -41,3 +41,16 @@ def clientIsValid(clientId, clientSecret, redirectUri):
     except Exception as e:
         print(e)
         return None
+
+
+@app.route('/auth')
+def authentication():
+    clientId     = request.args.get('clientId')
+    clientSecret = request.args.get('clientSecret')
+    redirectUri  = request.args.get('redirectUri')
+    scopes       = request.args.get('scopes')
+
+    if(clientId == None or clientSecret == None or redirectUri == None) or not clientIsValid(clientId, clientSecret, redirectUri):
+        return render_template('client_error.html')
+
+    return render_template('login.html', redirectUri=redirectUri)

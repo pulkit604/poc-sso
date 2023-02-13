@@ -6,6 +6,7 @@ Password: <input required type="password" label="Password" value="1234" id="pass
 <input type="submit" onclick="checkLogin()"/>
 
 <script>
+  var redirectUri = document.querySelector('#redirectUri').value
   ssoCookieToken = localStorage.getItem("pulkit_sso_token");
   if(ssoCookieToken) {
     fetch(' http://127.0.0.1:5000/validate_token', {
@@ -18,14 +19,13 @@ Password: <input required type="password" label="Password" value="1234" id="pass
     })
       .then(response => response.json())
       .then(response => {
-        document.cookie = ''
-        window.location = response.redirectUri + '?token=' + response.token})
+        window.location = redirectUri + '?token=' + ssoCookieToken})
   }
 
   function checkLogin() {
     var email    = document.querySelector('#email').value
     var password = document.querySelector('#password').value
-    var redirectUri = document.querySelector('#redirectUri').value
+
     if(!email || !password) {
       alert('Please check the inputs again!')
     }
@@ -39,7 +39,7 @@ Password: <input required type="password" label="Password" value="1234" id="pass
     })
       .then(response => response.json())
       .then(response => {
-        document.cookie = ''
+        localStorage.setItem("pulkit_sso_token", response.token)
         window.location = response.redirectUri + '?token=' + response.token})
   }
 </script>

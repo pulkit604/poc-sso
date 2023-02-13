@@ -59,14 +59,19 @@ def generate_token():
     return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N))
 
 @app.route('/validate_token', methods=['POST'])
-def validate_token(token):
+def validate_token():
+    requestData   = json.loads(request.data)
+    token         = requestData['token']
+
     try:
         for user in query_db('SELECT token FROM USER WHERE token = ?;', [token], True):
             token      = user['token']
             expireTime = user['expires_in']
-        return token
+        return jsonify({ "status": "valid"
+                       })
     except Exception as e:
-        return None
+        return jsonify({ "status": "invalid"
+                      })
 
 def getTokenFromDatabase(email, password):
     try:

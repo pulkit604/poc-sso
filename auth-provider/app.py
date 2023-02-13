@@ -57,3 +57,21 @@ def authentication():
 
 def generate_token():
     return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N))
+
+@app.route('/validate_token', methods=['POST'])
+def validate_token(token):
+    try:
+        for user in query_db('SELECT token FROM USER WHERE token = ?;', [token], True):
+            token      = user['token']
+            expireTime = user['expires_in']
+        return token
+    except Exception as e:
+        return None
+
+def getTokenFromDatabase(email, password):
+    try:
+        for user in query_db('SELECT token FROM USER WHERE email = ? AND password = ?;', [email, password], True):
+            token = user
+        return token
+    except Exception as e:
+        return None

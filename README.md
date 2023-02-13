@@ -1,5 +1,3 @@
-# poc-sso
-
 ## Proof Of Conecpt setup
 
 1)Install yarn - https://yarnpkg.com/ 

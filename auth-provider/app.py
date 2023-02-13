@@ -75,3 +75,22 @@ def getTokenFromDatabase(email, password):
         return token
     except Exception as e:
         return None
+
+@app.route('/login', methods=['POST'])
+def login():
+    try:
+        requestData   = json.loads(request.data)
+        redirectUri  =  requestData['redirectUri']
+        email         = requestData['email']
+        password      = requestData['password']
+        token         = getTokenFromDatabase(email, password)
+        print(token)
+        if token == None:
+            return render_template('login.html')
+        return jsonify({ "redirectUri": redirectUri,
+                         "token": token
+        })
+
+    except Exception as e:
+        print(e)
+        return render_template('login.html')

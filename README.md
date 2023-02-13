@@ -1,8 +1,9 @@
-## Proof Of Conecpt setup
+## Proof Of Concept setup
 
-1)Install yarn - https://yarnpkg.com/ 
+1) Install yarn - https://yarnpkg.com/
 2) yarn install
 3) yarn serve
+4) http://localhost:8080/ would start to serve the vue app
 
 ## Backend Setup
 Location: https://github.com/pulkit604/poc-sso/tree/master/auth-provider
@@ -11,6 +12,7 @@ Location: https://github.com/pulkit604/poc-sso/tree/master/auth-provider
 3) Move to auth provider directory
 4) Install required packages using `pip -r requirements.txt`
 5) Use command `flask run` to execute the server
+6)  http://127.0.0.1:5000/ is the url for the server
 
 ## Database - SQLite
 Location - https://github.com/pulkit604/poc-sso/tree/master/auth-provider/database/sso_manage.db

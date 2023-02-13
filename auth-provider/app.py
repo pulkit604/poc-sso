@@ -54,3 +54,6 @@ def authentication():
         return render_template('client_error.html')
 
     return render_template('login.html', redirectUri=redirectUri)
+
+def generate_token():
+    return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(N))

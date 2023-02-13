@@ -31,3 +31,13 @@ def query_db(query, args=(), one=False):
     rv = cur.fetchall()
     cur.close()
     return (rv[0] if rv else None) if one else rv
+
+
+def clientIsValid(clientId, clientSecret, redirectUri):
+    try:
+        for client in query_db('SELECT * FROM client WHERE clientId = ? AND clientSecret = ? AND redirectUri = ?;', [clientId, clientSecret, redirectUri], True):
+            clientValid = client
+        return True
+    except Exception as e:
+        print(e)
+        return None

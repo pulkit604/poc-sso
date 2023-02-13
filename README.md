@@ -1,14 +1,11 @@
 # poc-sso
 
-## POC Project setup
-```
-yarn install
-```
+## Proof Of Conecpt setup
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+
+1)Install yarn - https://yarnpkg.com/ 
+2) yarn install
+3) yarn serve
 
 ## Backend Setup
 Location: https://github.com/pulkit604/poc-sso/tree/master/auth-provider
@@ -17,6 +14,9 @@ Location: https://github.com/pulkit604/poc-sso/tree/master/auth-provider
 3) Move to auth provider directory
 4) Install required packages using `pip -r requirements.txt`
 5) Use command `flask run` to execute the server
+
+##Database - SQLite
+Location - https://github.com/pulkit604/poc-sso/tree/master/auth-provider/database/sso_manage.db
 
 ##Tool used for visually accessing SQLite database 
 https://tableplus.com/

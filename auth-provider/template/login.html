@@ -1,0 +1,45 @@
+<h1>Pulkit's SSO</h1>
+<div style="width:100%;height:0;padding-bottom:20%;"><iframe src="https://giphy.com/embed/SX5y0h1Dh5BQVOBwNo" width="50%" height="30%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div>
+Email Address: <input required type="email" label="Email Address" value="guppul@gmail.com" id="email"/><br>
+Password: <input required type="password" label="Password" value="1234" id="password"/><br>
+<input type="hidden" id="redirectUri" value={{redirectUri}}/>
+<input type="submit" onclick="checkLogin()"/>
+
+<script>
+  ssoCookieToken = localStorage.getItem("pulkit_sso_token");
+  if(ssoCookieToken) {
+    fetch(' http://127.0.0.1:5000/validate_token', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ "token": ssoCookieToken  })
+    })
+      .then(response => response.json())
+      .then(response => {
+        document.cookie = ''
+        window.location = response.redirectUri + '?token=' + response.token})
+  }
+
+  function checkLogin() {
+    var email    = document.querySelector('#email').value
+    var password = document.querySelector('#password').value
+    var redirectUri = document.querySelector('#redirectUri').value
+    if(!email || !password) {
+      alert('Please check the inputs again!')
+    }
+    fetch(' http://127.0.0.1:5000/login', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ "email": email, "password": password, "redirectUri": redirectUri  })
+    })
+      .then(response => response.json())
+      .then(response => {
+        document.cookie = ''
+        window.location = response.redirectUri + '?token=' + response.token})
+  }
+</script>
